@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="../static/css/style.css" rel="stylesheet">
+
+    <title>Note Taking</title>
+</head>
+
+<body onload="loadContent();">
+    <div class="aNotice">
+
+    </div>
+    <div class="body-container"><br>
+        <div class="contain">
+            <!-- Image and text -->
+            <nav class="navbar" style="position: relative;">
+                <input placeholder="Untitled" id="title" value="Untitled" required>
+                <div class="circle addH green">
+                    <a onclick="addH()" title="Add a heading">+</a>
+                </div>
+                <div class="circle addL yellow">
+                    <a onclick="addL()" title="Add a Link">-</a>
+                </div>
+                <div class="circle save red">
+                    <a onclick="save()" title="Save and exit">&#10005;</a>
+                </div>
+            </nav>
+
+            <div class="row">
+                <div class="col-lg-8 col-md-6 notes">
+                    <form style="margin: 20px;" method="post" id="textEditor">
+                        <p contenteditable="" id="content">Start Typing</p>
+                        <input id="value" name="content">
+                        <input id="question" name="questions">
+                        <button id="submit" type="submit"></button>
+                    </form>
+                </div>
+                <div class="col-lg-4 col-md-6 questioner">
+                    <p class="addQ">Add A New Question +</p>
+                    <div id="questions">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form method="post" style="display: none;">
+        <input id="loadFile" name="loadFile">
+        <button type="submit" id="submit_loadFile"></button>
+    </form>
+
+    <script>
+        function loadContent() {
+            if (window.location.href.includes("#")) {
+                var fileName = window.location.href.split("#")[1];
+
+                if (!fileName.includes(".txt")) {
+                    fileName += ".txt"
+                }
+                document.querySelector("#loadFile").value = fileName;
+                document.querySelector("#submit_loadFile").click();
+            }
+        }
+    </script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="../static/js/server.js"></script>
+</body>
+
+</html>
