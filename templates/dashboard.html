@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/homepage.css">
+    <title>Cyber Pad</title>
+
+    <style>
+        #myquestions,
+        #revision {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="">Cyber Pad</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav" style="left: 50%; transform: translate(-50%, 0%); text-align: center;">
+                <a class="nav-item nav-link active" href="" id="no">All Notes</a>
+                <a class="nav-item nav-link" href="#revision" id="rev">Recommended Revision</a>
+            </div>
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="/"><img src="../static/images/new_file.png" class="new_file" title="Add a new file"></a>
+
+                <!-- <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a> -->
+
+                <a class="nav-item nav-link" href="#">
+                    <form action="/search" method="post"><input placeholder="Search for a file" title="query" name="query"><button id="searchButton" style="display: none;"></button></form>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div id="start">
+        <div class="blob blue-black">
+
+        </div>
+        <div class="content" style="padding-left: 6%; padding-right: 6%;"><br><br><br><br>
+
+
+
+            <div id="notes">
+                <h5>Your notes</h5><br>
+                <div class="row">
+                    {% for items in dir %}
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card note-list {{items}}">
+                            {% if items[-4:] == ".txt" %}
+                            <h6>{{items[:-4]}}</h6>
+                            {% endif %} {% if items[-4:] != ".txt" %}
+                            <h6>{{items}}</h6>
+                            {% endif %}
+                        </div>
+                        <div class="footer">
+                            <img src="../static/images/bin.png" class="new_file delete_file {{items}}" title="Delete file">
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+
+            <div id="revision">
+                <h5>Recommended Revision</h5><br>
+                <div class="row">
+                    {% for items in date %}
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card note-list {{dir[::-1][date.index(items)]}}">
+                            {% if dir[::-1][date.index(items)][-4:] != ".txt" %}
+                            <h6>{{ dir[::-1][date.index(items)] }}</h6>
+                            {% endif %} {% if dir[::-1][date.index(items)][-4:] == ".txt" %}
+                            <h6>{{ dir[::-1][date.index(items)][:-4] }}</h6>
+                            {% endif %}
+                        </div>
+                        <div class="footer">
+                            {{ items }}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <form style="display: none;" method="post">
+        <input id="remover" name="remove_file_name">
+        <button type="submit" id="remove_submit"></button>
+    </form>
+
+    <form style="display: none;" method="post">
+        <input id="load" name="load">
+        <button type="submit" id="load_submit"></button>
+    </form>
+
+
+    <!-- <a target="_blank" href="https://icons8.com/icon/47687/add-file">Add File</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+    <a target="_blank" href="https://icons8.com/icon/54629/remove">Remove</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a> -->
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script>
+        const mynotes = document.querySelector("#notes");
+        const myrevision = document.querySelector("#revision");
+
+
+        document.querySelectorAll(".nav-link.nav-item").forEach((item) => {
+            item.addEventListener("click", () => {
+                itemString = item.innerHTML.split("#");
+
+                document.querySelectorAll(".nav-item.nav-link").forEach((items) => {
+                    items.classList.remove("active");
+                });
+
+                item.classList.add("active");
+                if (itemString == "All Questions") {
+                    mynotes.style.display = "none";
+                    myrevision.style.display = "none";
+                } else if (itemString == "Recommended Revision") {
+                    mynotes.style.display = "none";
+                    myrevision.style.display = "block";
+                }
+            });
+        });
+
+
+
+        let loc = window.location.href;
+        if (!loc.includes("/files")) {
+            window.location.href = loc.split("/")[0] + "/files"
+        }
+
+        document.querySelectorAll(".delete_file").forEach((item) => {
+            item.addEventListener("click", () => {
+                classL = Array.from(item.classList)
+
+                classL.shift();
+                classL.shift();
+
+                var file_name = ""
+
+                for (var i = 0; i < classL.length; i++) {
+                    if (i === classL.length - 1) {
+                        file_name += classL[i]
+                    } else {
+                        file_name += classL[i] + " ";
+                    }
+                }
+
+                document.querySelector("#remover").value = file_name;
+                document.querySelector("#remove_submit").click();
+
+            });
+        });
+
+        document.querySelectorAll(".note-list").forEach((item) => {
+            item.addEventListener("click", () => {
+                classL = Array.from(item.classList)
+
+                classL.shift();
+                classL.shift();
+
+                var file_name = ""
+
+                for (var i = 0; i < classL.length; i++) {
+                    if (i === classL.length - 1) {
+                        file_name += classL[i]
+                    } else {
+                        file_name += classL[i] + " ";
+                    }
+                }
+
+                document.querySelector("#load").value = file_name;
+                document.querySelector("#load_submit").click();
+            })
+        });
+
+        document.querySelector("input#query").addEventListener("keypress", (e) => {
+            if (e.target.keyCode === 13) {
+                document.querySelector("button#serchButton").click();
+            }
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html>
