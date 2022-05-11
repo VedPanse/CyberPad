@@ -3,8 +3,8 @@ Cyber Pad is a strategic note-taking web application that doesn't let you forget
 
 
 # Requirements
-1. Python 3
-2. Flask
+1. ![Python 3](https://www.python.org/downloads/)
+2. ![Flask](https://flask.palletsprojects.com/en/2.1.x/installation/)
 
 
 # Features
