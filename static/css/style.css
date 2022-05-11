@@ -1,0 +1,179 @@
+html,
+body {
+    width: 100vw;
+    height: 105vh;
+    background-image: url(../images/bg.jpeg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.body-container {
+    width: 100vw !important;
+    height: 105vh !important;
+}
+
+@supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+    .body-container {
+        -webkit-backdrop-filter: blur(75px);
+        backdrop-filter: blur(75px);
+    }
+}
+
+.contain {
+    width: 97vw;
+    height: 97vh;
+    background-color: rgb(255, 255, 255, 0.5);
+    padding: 0% 0%;
+    margin: auto;
+    /* border-radius: 40px; */
+    border-radius: 25px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.navbar {
+    border-bottom: 1px solid black;
+    background-color: transparent;
+}
+
+.navbar input {
+    width: 100%;
+    background-color: transparent;
+    border: transparent;
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.col-lg-8 {
+    border-right: 1px solid black;
+    height: 100%;
+}
+
+.row {
+    height: 93%;
+}
+
+.navbar input::placeholder {
+    font-weight: normal;
+}
+
+input#value,
+button#submit {
+    visibility: hidden;
+}
+
+p#content {
+    min-height: 100%;
+    width: 100%;
+    display: block;
+}
+
+.addQ {
+    text-align: center;
+    border-bottom: 1px solid black;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-left: -5%;
+}
+
+.addQ:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.19);
+}
+
+.question-div {
+    border-bottom: 1px solid black;
+    padding: 2%;
+}
+
+.questioner {
+    max-height: 100%;
+    overflow: scroll;
+}
+
+.notes {
+    max-width: 100%;
+    overflow: scroll;
+}
+
+.addH {
+    position: absolute;
+    right: 6%;
+}
+
+.addL {
+    position: absolute;
+    right: 4%;
+}
+
+.save {
+    position: absolute;
+    right: 2%;
+}
+
+.addH:hover,
+.addL:hover,
+.save:hover {
+    cursor: pointer;
+}
+
+#content .link {
+    color: #06c;
+    display: block;
+    font-size: 16px;
+    z-index: 5;
+}
+
+input#question {
+    visibility: hidden;
+}
+
+.circle {
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+    width: 12px;
+    height: 12px;
+    font-size: 10px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.circle a {
+    position: relative;
+    top: -15%;
+}
+
+.red:hover {
+    background-color: red;
+}
+
+.red.circle {
+    font-size: 8px;
+}
+
+.red.circle a {
+    top: 0%;
+}
+
+.green:hover,
+.yellow:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+@media screen and (max-width: 600px) {
+    .addL {
+        right: 5%;
+    }
+    .addH {
+        right: 8%;
+    }
+}
+
+[contenteditable=true]:empty:before {
+    content: attr(placeholder);
+    pointer-events: none;
+    display: block;
+    /* For Firefox */
+}
