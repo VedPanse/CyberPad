@@ -1,5 +1,5 @@
 # CyberPad
-Cyber Pad is a strategic note-taking web application that doesn't let you forget the highlights. The strategy is an adaptation of the 'Cornell Notes Taking Strategy.'
+Cyber Pad is a strategic note-taking web application. The strategy is an adaptation of the 'Cornell Notes Taking Strategy.' It won't let you forget the highlights.
 
 
 # Requirements
